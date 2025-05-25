@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Exit immediately on any error to come.
+set -e
+
+# Set the working dir at the beginning. When running cronjobs, the
+# relative path is not this directory the scripts lives in.
+cd /var/opt/_bruder
+
+# Import log functions.
+. logger.sh
+
+# first param (e.g. update)
+action=$1
+
+# second param (e.g. all or dirname)
+target=$2
+
+# Log everything to all.log.
+# exec > "$(dirname "$0")/all.log" 2>&1
+
+# First parameter has to be muss!
+if [ "$action" != "muss" ]; then
+  log_info "🩲" "Bruder [muss|…]?"
+  exit 1
+fi
+
+# Second parameter will just accept …updaten… for now.
+if [ "$target" != "updaten" ]; then
+  log_info "🩲" "Bruder muss [updaten|…]?"
+  exit 1
+fi
+
+
+################################
+log_info "🫰 " "Was geht Bruder!"
+################################
+
+# Loop through the file with directory names for automatic updates
+# and run a set of docker commands to update it to the latest version.
+if [ "$target" = "updaten" ]; then
+  log_info "🫴 " "Ich lass Updates für alle Projekte laufen…"
+
+  while IFS= read -r dir_name; do
+    dir="/var/opt/$dir_name"
+
+    # Directory doesn't exist?
+    [ -d "$dir" ] || {
+      continue
+    }
+
+    log_info "↪️ " "$dir_name"
+    cd $dir
+
+    # Check, if any compose container is running.
+    if docker compose ps -q | grep -q .; then
+
+      # Run docker compose updates if a compose.yml file exists.
+      if [ -f "compose.yml" ] || [ -f "docker-compose.yml" ]; then
+        docker compose pull
+        docker compose up -d
+      else
+        log_info "🫲 " "Keine compose.yml gefunden, Bruder!"
+        continue
+      fi
+    else
+      log_info "🫲 " "Grad nicht an, weiter zum nächsten!"
+    fi
+  done < update-list
+
+  log_success "Alles fertig Bruder, war easy."
+fi
