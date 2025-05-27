@@ -41,10 +41,11 @@ log_info "🫰 " "Was geht Bruder!"
 if [ "$target" = "updaten" ]; then
   log_info "🫴 " "Ich lass Updates für alle Projekte laufen…"
 
-  log_info "🫸 " "Erstmal pushen…"
-  git add .
-  git commit -m '»Automatic update«'
-  git push origin bruder
+  # TODO: Implement automatic push. Cron gets stuck with git username
+  # log_info "🫸 " "Erstmal pushen…"
+  # git add .
+  # git commit -m '»Automatic update«'
+  # git push origin bruder
 
   log_info "🫸 " "Jetzt alle self-hosted Projekte…"
   while IFS= read -r dir_name; do
