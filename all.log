@@ -7,3 +7,6 @@ fatal: could not read Username for 'https://github.com': No such device or addre
 🫰  Was geht Bruder!
 🫴  Ich lass Updates für alle Projekte laufen…
 🫸  Erstmal pushen…
+[bruder 64127d2] »Automatic update«
+ 1 file changed, 6 insertions(+)
+fatal: could not read Username for 'https://github.com': No such device or address
