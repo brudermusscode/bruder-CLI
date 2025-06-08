@@ -33,21 +33,23 @@ fi
 
 
 ################################
-log_info "🫰 " "Was geht Bruder!"
+echo -e "\n"
+log_info "🕰️" "$TIME"
+log_info "🫰" "Was geht Bruder!"
 ################################
 
 # Loop through the file with directory names for automatic updates
 # and run a set of docker commands to update it to the latest version.
 if [ "$target" = "updaten" ]; then
-  log_info "🫴 " "Ich lass Updates für alle Projekte laufen…"
+  log_info "🫴" "Ich lass Updates für alle Projekte laufen…"
 
   # TODO: Implement automatic push. Cron gets stuck with git username
-  # log_info "🫸 " "Erstmal pushen…"
+  # log_info "🫸" "Erstmal pushen…"
   # git add .
   # git commit -m '»Automatic update«'
   # git push origin bruder
 
-  log_info "🫸 " "Jetzt alle self-hosted Projekte…"
+  log_info "🫸" "Jetzt alle self-hosted Projekte…"
   while IFS= read -r dir_name; do
     dir="/var/opt/$dir_name"
 
@@ -56,7 +58,7 @@ if [ "$target" = "updaten" ]; then
       continue
     }
 
-    log_info "↪️ " "$dir_name"
+    log_info "↪️" "$dir_name"
     cd $dir
 
     # Check, if any compose container is running.
@@ -64,14 +66,14 @@ if [ "$target" = "updaten" ]; then
 
       # Run docker compose updates if a compose.yml file exists.
       if [ -f "compose.yml" ] || [ -f "docker-compose.yml" ]; then
-        docker compose pull
-        docker compose up -d
+        docker compose pull 2> >(log_command_output)
+        docker compose up -d 2> >(log_command_output)
       else
-        log_info "🫲 " "Keine compose.yml gefunden, Bruder!"
+        log_info "🫲" "Keine compose.yml gefunden, Bruder!"
         continue
       fi
     else
-      log_info "🫲 " "Grad nicht an, weiter zum nächsten!"
+      log_info "🫲" "Grad nicht an, weiter zum nächsten!"
     fi
   done < update-list
 

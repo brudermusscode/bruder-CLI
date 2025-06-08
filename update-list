@@ -1,7 +1,8 @@
-immich
-matomo
-umami
 cloudflared
 cloud/filebrowser
 cloud/finances
 cloud/search
+cloud/immich
+git
+matomo
+umami

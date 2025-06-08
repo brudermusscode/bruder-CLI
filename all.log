@@ -1,12 +1,102 @@
-🫰  Was geht Bruder!
-🫴  Ich lass Updates für alle Projekte laufen…
-🫸  Erstmal pushen…
-[bruder ee05886] »Automatic update«
- 1 file changed, 3 insertions(+)
-fatal: could not read Username for 'https://github.com': No such device or address
-🫰  Was geht Bruder!
-🫴  Ich lass Updates für alle Projekte laufen…
-🫸  Erstmal pushen…
-[bruder 64127d2] »Automatic update«
- 1 file changed, 6 insertions(+)
-fatal: could not read Username for 'https://github.com': No such device or address
+[🕰️] 08. June 2025 - 15:13
+[🫰] Was geht Bruder!
+[🫴] Ich lass Updates für alle Projekte laufen…
+[🫸] Jetzt alle self-hosted Projekte…
+[↪️] cloudflared
+ |»     cloudflared Pulling 
+ |»     cloudflared Pulled 
+ |»     Container cloudflared  Running
+[↪️] cloud/filebrowser
+ |»     filebrowser Pulling 
+ |»     filebrowser Pulled 
+ |»     Container filebrowser  Running
+[↪️] cloud/finances
+[🫲] Grad nicht an, weiter zum nächsten!
+[↪️] cloud/search
+[🫲] Grad nicht an, weiter zum nächsten!
+[↪️] cloud/immich
+ |»     redis Pulling 
+ |»     database Pulling 
+ |»     immich-server Pulling 
+ |»     immich-machine-learning Pulling 
+ |»     database Pulled 
+ |»     redis Pulled 
+ |»     immich-server Pulled 
+ |»     immich-machine-learning Pulled 
+ |»     Container immich_redis  Running
+ |»     Container immich_machine_learning  Running
+ |»     Container immich_postgres  Running
+ |»     Container immich_server  Running
+[↪️] git
+ |»     phpmyadmin Pulling 
+ |»     gitea Pulling 
+ |»     mysql Pulling 
+ |»     gitea Pulled 
+ |»     mysql Pulled 
+ |»     phpmyadmin Pulled 
+ |»     Container gitea  Running
+ |»     Container gitea-mysql  Running
+ |»     Container gitea-phpmyadmin-1  Running
+[↪️] matomo
+ |»     matomo Pulling 
+ |»     mysql Pulling 
+ |»     phpmyadmin Pulling 
+ |»     mysql Pulled 
+ |»     phpmyadmin Pulled 
+ |»     matomo Pulled 
+ |»     Container matomo-mysql-1  Running
+ |»     Container matomo-phpmyadmin-1  Running
+ |»     Container matomo-matomo-1  Running
+[✅] Alles fertig Bruder, war easy.
+
+
+[🕰️] 08. June 2025 - 15:13
+[🫰] Was geht Bruder!
+[🫴] Ich lass Updates für alle Projekte laufen…
+[🫸] Jetzt alle self-hosted Projekte…
+[↪️] cloudflared
+ |»     cloudflared Pulling 
+ |»     cloudflared Pulled 
+ |»     Container cloudflared  Running
+[↪️] cloud/filebrowser
+ |»     filebrowser Pulling 
+ |»     filebrowser Pulled 
+ |»     Container filebrowser  Running
+[↪️] cloud/finances
+[🫲] Grad nicht an, weiter zum nächsten!
+[↪️] cloud/search
+[🫲] Grad nicht an, weiter zum nächsten!
+[↪️] cloud/immich
+ |»     database Pulling 
+ |»     immich-machine-learning Pulling 
+ |»     redis Pulling 
+ |»     immich-server Pulling 
+ |»     database Pulled 
+ |»     redis Pulled 
+ |»     immich-machine-learning Pulled 
+ |»     immich-server Pulled 
+ |»     Container immich_postgres  Running
+ |»     Container immich_redis  Running
+ |»     Container immich_machine_learning  Running
+ |»     Container immich_server  Running
+[↪️] git
+ |»     gitea Pulling 
+ |»     mysql Pulling 
+ |»     phpmyadmin Pulling 
+ |»     gitea Pulled 
+ |»     mysql Pulled 
+ |»     phpmyadmin Pulled 
+ |»     Container gitea-mysql  Running
+ |»     Container gitea  Running
+ |»     Container gitea-phpmyadmin-1  Running
+[↪️] matomo
+ |»     matomo Pulling 
+ |»     phpmyadmin Pulling 
+ |»     mysql Pulling 
+ |»     mysql Pulled 
+ |»     matomo Pulled 
+ |»     phpmyadmin Pulled 
+ |»     Container matomo-mysql-1  Running
+ |»     Container matomo-matomo-1  Running
+ |»     Container matomo-phpmyadmin-1  Running
+[✅] Alles fertig Bruder, war easy.
