@@ -45,12 +45,12 @@ log_info "🫰" "Was geht Bruder!"
 # respective versions.
 if [ "$target" = "updaten" ]; then
 
-  git fetch 2> >(log_command_output)
+  log_command git fetch
 
   # Updates available for this script?
   if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
     log_info "🫴" "Erstmal mich updaten…"
-    git pull 2> >(log_command_output)
+    log_command git pull
   fi
 
   log_info "🫴" "Ich lass Updates für alle Projekte laufen…"
@@ -70,15 +70,15 @@ if [ "$target" = "updaten" ]; then
 
       # Run docker compose updates if a compose.yml file exists.
       if [ -f "compose.yml" ] || [ -f "docker-compose.yml" ]; then
-        docker compose pull 2> >(log_command_output)
-        docker compose up -d 2> >(log_command_output)
+        log_command docker compose pull
+        log_command docker compose up -d
       else
         log_info "🫲" "Keine compose.yml gefunden, Bruder!"
         continue
       fi
     else
       log_info "🤫" "Grad nicht an, update läuft still…"
-      docker compose pull 2> >(log_command_output)
+      log_command docker compose pull
     fi
   done < update-list
 
