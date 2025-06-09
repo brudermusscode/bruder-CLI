@@ -28,7 +28,7 @@ fi
 
 # Second parameter will just accept …updaten… for now.
 if [ "$target" != "updaten" ]; then
-  log_info "🩲" "Bruder muss [updaten|…]?  test"
+  log_info "🩲" "Bruder muss [updaten|…]?"
   exit 1
 fi
 
