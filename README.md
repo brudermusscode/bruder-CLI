@@ -63,21 +63,21 @@ deine Zeit an. Meiner läuft jeden Tag um 3 Uhr morgens:
 0 3 * * * /var/opt/_bruder/bruder muss updaten >> /var/opt/_bruder/all.log 2>&1
 ```
 
-Der speichert schon den gesamten Output von den Updates in der von dir
+Dann Speichern und exiten. Der speichert schon den gesamten Output von den Updates in der von dir
 zuvor erstellen `all.log`.
 
-#### ▶️ 4.1. _Muss nicht_, aber du kannst cron für dich aufräumen lassen
+#### ▶️ IIIII. _Muss nicht_, aber du kannst cron für dich aufräumen lassen
 
 Erstelle einen Cronjob, um deine Log files
 regelmäßig zu cleanen, damits nicht so voll wird. Ich lasse jeden
-Montag um 2:00 morgens einen laufen:
+Montag um 2:00 Uhr morgens einen laufen:
 
 ```bash
 # monday 2am - Clear all »all.log« files.
 0 2 * * 1 find /var/opt -type f -name "all.log" -exec truncate -s 0 {} \;
 ```
 
-Dieser job geht durch alle Directories in /var/opt und sucht nach
+Dieser job geht durch alle Directories in `/var/opt`, sucht nach
 einer `all.log` und löscht den Inhalt. So behalte ich nur die Logs von einer Woche und vscode stirbt
 nicht jedes mal, wenn ich eine Logfile öffne - Kein Ding Brudi 💋
 
