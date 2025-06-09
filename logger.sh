@@ -15,6 +15,10 @@ log_error() {
   echo "[💥] $1"
 }
 
-log_command() {
+log_run() {
+  "$@" > >(sed 's/^/ |»    /') 2> >(sed 's/^/ |»    /' >&2)
+}
+
+void_run() {
   "$@" > >(sed 's/^/ |»    /') 2> >(sed 's/^/ |»    /' >&2)
 }
