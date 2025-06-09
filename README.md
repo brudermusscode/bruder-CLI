@@ -27,8 +27,9 @@ Beispiel Struktur deiner Services unter Linux:
 
 ```TXT
 /var/opt
-├── /matomo
+├── /cloudflared
 ├── /gitea
+├── /matomo
 └── /cloud
     └─ /immich
 ```
@@ -36,6 +37,7 @@ Beispiel Struktur deiner Services unter Linux:
 Passend dazu dann die Beispiel-Struktur deiner `update-list`:
 
 ```TXT
+cloudflared
 matomo
 gitea
 cloud/immich
