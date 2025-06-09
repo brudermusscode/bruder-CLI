@@ -8,7 +8,7 @@ genau richtig! Echte ♂️ Männer lassen updaten!
 
 ### Eeeasy setup, mach einfach alles wie beschrieben.
 
-#### 〰️ 1. Cloniere dieses Repo! ¬
+#### ▶️ 1. Cloniere dieses Repo! ¬
 
 `cd /var/opt` und dann `git clone
 https://github.com/brudermusscode/bruder-CLI.git _bruder` laufen
@@ -16,7 +16,7 @@ lassen. Danach `cd _bruder` und ab da werden alle folgenden
 Commands und erstellten Dateien in dieser Directory abgefeuert und
 erstellt ~ Danke 💏.
 
-#### 〰️ 2. Deine Update-Struktur erstellen ¬
+#### ▶️ 2. Deine Update-Struktur erstellen ¬
 
 Erstelle eine Datei `update-list`! In dieser Datei stehen alle deine
 Ordnernamen von Services in `/var/opt`, die eine `compose.yml`
