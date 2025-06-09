@@ -3,9 +3,13 @@
 # Exit immediately on any error to come.
 set -e
 
+# The directory the script lives in. Should be /var/opt/_bruder.
+# TODO: Make it dynamic, wherever services live in.
+__DIR__="$(cd "$(dirname "$0")" && pwd)"
+
 # Set the working dir at the beginning. When running cronjobs, the
-# relative path is not this directory the scripts lives in.
-cd /var/opt/_bruder
+# relative path is not the directory the script being fired lives in.
+cd $__DIR__
 
 # Import log functions.
 . logger.sh
@@ -16,10 +20,7 @@ action=$1
 # second param (e.g. all or dirname)
 target=$2
 
-# Log everything to all.log.
-# exec > "$(dirname "$0")/all.log" 2>&1
-
-# First parameter has to be muss!
+# First parameter has to be …muss…!
 if [ "$action" != "muss" ]; then
   log_info "🩲" "Bruder [muss|…]?"
   exit 1
@@ -38,27 +39,30 @@ log_info "🕰️" "$TIME"
 log_info "🫰" "Was geht Bruder!"
 ################################
 
-# Loop through the file with directory names for automatic updates
-# and run a set of docker commands to update it to the latest version.
+
+# Loop through the update-list file and run a set of docker
+# commands to update all services to the latest release of their
+# respective versions.
 if [ "$target" = "updaten" ]; then
+
+  git fetch 2> >(log_command_output)
+
+  # Updates available for this script?
+  if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
+    log_info "🫴" "Erstmal mich updaten…"
+    git pull 2> >(log_command_output)
+  fi
+
   log_info "🫴" "Ich lass Updates für alle Projekte laufen…"
 
-  # TODO: Implement automatic push. Cron gets stuck with git username
-  # log_info "🫸" "Erstmal pushen…"
-  # git add .
-  # git commit -m '»Automatic update«'
-  # git push origin bruder
-
-  log_info "🫸" "Jetzt alle self-hosted Projekte…"
   while IFS= read -r dir_name; do
     dir="/var/opt/$dir_name"
 
     # Directory doesn't exist?
-    [ -d "$dir" ] || {
-      continue
-    }
+    [ -d "$dir" ] || continue
 
     log_info "↪️" "$dir_name"
+
     cd $dir
 
     # Check, if any compose container is running.
@@ -73,9 +77,10 @@ if [ "$target" = "updaten" ]; then
         continue
       fi
     else
-      log_info "🫲" "Grad nicht an, weiter zum nächsten!"
+      log_info "🤫" "Grad nicht an, update läuft still…"
+      docker compose pull 2> >(log_command_output)
     fi
   done < update-list
 
-  log_success "Alles fertig Bruder, war easy."
+  log_success "Alles fertig Bruder, bis zum nächsten mal!"
 fi
