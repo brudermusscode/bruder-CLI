@@ -14,13 +14,13 @@ __DIR__="$(cd "$(dirname "$0")" && pwd)"
 # relative path is not the directory the script being fired lives in.
 cd $__DIR__
 
-# first param (e.g. update)
+# first param - should by now always be …muss…
 action=$1
 
-# second param (e.g. all or dirname)
+# second param (e.g. update|backup)
 target=$2
 
-# First parameter has to be …muss…!
+# First param invalid?
 valid_actions=(muss)
 if ! in_array "$action" "${valid_actions[@]}"; then
   log_info "❗" "Bruder [muss|…]?"
@@ -54,7 +54,7 @@ if [ "$action" = "muss" ] && [ "$target" = "backup" ]; then
   exit 1
 fi
 
-# Loop through the update-list file and run a set of docker
+# Loop through the list.update file and run a set of docker
 # commands to update all services to the latest release of their
 # respective versions.
 if [ "$action" = "muss" ] && [ "$target" = "update" ]; then
