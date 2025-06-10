@@ -3,6 +3,9 @@
 # Exit immediately on any error to come.
 set -e
 
+# Import log functions.
+. functions
+
 # The directory the script lives in. Should be /var/opt/_bruder.
 # TODO: Make it dynamic, wherever services live in.
 __DIR__="$(cd "$(dirname "$0")" && pwd)"
@@ -11,9 +14,6 @@ __DIR__="$(cd "$(dirname "$0")" && pwd)"
 # relative path is not the directory the script being fired lives in.
 cd $__DIR__
 
-# Import log functions.
-. logger.sh
-
 # first param (e.g. update)
 action=$1
 
@@ -21,39 +21,53 @@ action=$1
 target=$2
 
 # First parameter has to be …muss…!
-if [ "$action" != "muss" ]; then
-  log_info "🩲" "Bruder [muss|…]?"
+valid_actions=(muss)
+if ! in_array "$action" "${valid_actions[@]}"; then
+  log_info "❗" "Bruder [muss|…]?"
   exit 1
 fi
 
-# Second parameter will just accept …updaten… for now.
-if [ "$target" != "updaten" ]; then
-  log_info "🩲" "Bruder muss [updaten|…]?"
+# No target set?
+if [ ! -n "$target" ]; then
+  log_info "❗" "Bruder muss [update|backup|…]?"
   exit 1
 fi
 
+# Target is valid?
+valid_targets=(update backup)
+if [ "$action" = "muss" ]; then
+  if ! in_array "$target" "${valid_targets[@]}"; then
+    log_info "🙃" "Bruder muss los."
+    exit 1
+  fi
+fi
 
 ################################
 echo -e "\n"
-log_info "🕰️" "$TIME"
-log_info "🫰" "Was geht Bruder!"
+log_time
 ################################
 
+# Run backups for a given set if projects in the parent folder.
+if [ "$action" = "muss" ] && [ "$target" = "backup" ]; then
+  [ -f "./backup" ] && ./backup
+
+  exit 1
+fi
 
 # Loop through the update-list file and run a set of docker
 # commands to update all services to the latest release of their
 # respective versions.
-if [ "$target" = "updaten" ]; then
+if [ "$action" = "muss" ] && [ "$target" = "update" ]; then
 
   void_run git fetch
 
   # Updates available for this script?
   if [[ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]]; then
-    log_info "🫴" "Erstmal mich updaten…"
+    log_info "▶️" "Erstmal mich updaten…"
     log_run git pull
   fi
 
-  log_info "🫴" "Ich lass Updates für alle Projekte laufen…"
+  log_info "▶️" "Ich lass Updates für alle Projekte laufen…"
 
   while IFS= read -r dir_name; do
     dir="/var/opt/$dir_name"
@@ -61,7 +75,7 @@ if [ "$target" = "updaten" ]; then
     # Directory doesn't exist?
     [ -d "$dir" ] || continue
 
-    log_info "↪️" "$dir_name"
+    log_info "▶️" "$dir_name"
 
     cd $dir
 
@@ -73,14 +87,16 @@ if [ "$target" = "updaten" ]; then
         log_run docker compose pull
         log_run docker compose up -d
       else
-        log_info "🫲" "Keine compose.yml gefunden, Bruder!"
+        log_info "ℹ️" "Keine compose.yml gefunden!"
         continue
       fi
     else
-      log_info "🤫" "Grad nicht an, update läuft still…"
+      log_info "ℹ️" "Grad nicht an, update läuft still…"
       log_run docker compose pull
     fi
-  done < update-list
+  done < list.update
 
-  log_success "Alles fertig Bruder, bis zum nächsten mal!"
+  log_success "Alles klar, Bruder!"
+
+  exit 1
 fi

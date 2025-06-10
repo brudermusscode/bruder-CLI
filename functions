@@ -1,0 +1,47 @@
+# File containing logging options which can be included and then
+# used around other sh files. This should keep everything straight forward.
+
+TIME=$(date +"%d. %B %Y - %H:%M")
+
+# ◜ ◝ ◞ ◟
+
+log_time() {
+  echo …… ⋞ 🕛 $TIME ⋟ ……
+}
+
+log_info() {
+  echo "$1 ⤍ $2"
+}
+
+log_success() {
+  echo "✅ ⤍ $1"
+}
+
+log_error() {
+  echo "💥 ⤍ $1"
+}
+
+log_run() {
+  "$@" > >(sed 's/^/│║    /') 2> >(sed 's/^/│║    /' >&2)
+}
+
+void_run() {
+  "$@" > /dev/null 2>&1
+}
+
+random_item() {
+  local array=("${@}") # Create a local copy of the array
+  local index=$((RANDOM % ${#array[@]})) # Get a random index
+
+  echo "${array[$index]}" # Output item at that index
+}
+
+in_array() {
+  param=$1
+  shift
+  for elem in "$@"; do
+      [[ "$param" = "$elem" ]] && return 0
+  done
+
+  return 1
+}

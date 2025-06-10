@@ -18,7 +18,7 @@ erstellt ~ Danke 💏.
 
 #### ▶️ 2. Deine Update-Struktur erstellen ¬
 
-Erstelle eine Datei `update-list`! In dieser Datei stehen alle deine
+Erstelle eine Datei `list.update`! In dieser Datei stehen alle deine
 Ordnernamen von Services in `/var/opt`, die eine `compose.yml`
 oder `docker-compose.yml` enthalten und die automatisch
 geupdated werden sollen _(je ein Pfad pro Zeile)_.
@@ -34,7 +34,7 @@ Beispiel Struktur deiner Services unter Linux:
     └─ /immich
 ```
 
-Passend dazu dann die Beispiel-Struktur deiner `update-list`:
+Passend dazu dann die Beispiel-Struktur deiner `list.update`:
 
 ```TXT
 cloudflared
